@@ -1,4 +1,4 @@
-# Trading_Agent007
+ï»¿# Trading_Agent007
 
 Multi-account, multi-market quantitative trading framework for Coinbase spot, futures, and perpetual-style workflows with adaptive risk personality.
 
@@ -54,13 +54,13 @@ This enables aggressive growth behavior when conditions are favorable while pres
 ```text
 Trading_Agent007/
 +-- agent/
-¦   +-- core/
-¦   +-- strategy/
-¦   +-- risk/
-¦   +-- execution/
-¦   +-- backtest/
-¦   +-- data/
-¦   +-- utils/
+Â¦   +-- core/
+Â¦   +-- strategy/
+Â¦   +-- risk/
+Â¦   +-- execution/
+Â¦   +-- backtest/
+Â¦   +-- data/
+Â¦   +-- utils/
 +-- docker/
 +-- tests/
 +-- .env.example
@@ -175,6 +175,20 @@ cp .env.example .env
 python main.py
 ```
 
+Default live mode uses websocket ticker streaming for market data, with REST fallback for warmup and short gaps.
+
+Disable websocket and force polling:
+
+```bash
+python main.py --disable-websocket
+```
+
+Enable authenticated user/order updates stream:
+
+```bash
+python main.py --enable-user-stream
+```
+
 Optional CSV-driven run:
 
 ```bash
@@ -195,6 +209,15 @@ Container characteristics:
 - Graceful shutdown via signal handling.
 - Optional close-all on shutdown (`CLOSE_POSITIONS_ON_SHUTDOWN=true`).
 
+Websocket env controls:
+- `USE_WEBSOCKET_DATA`
+- `COINBASE_WS_MARKET_URL`
+- `COINBASE_WS_USER_URL`
+- `WS_RECONNECT_SECONDS`
+- `WS_LOOKBACK_BARS`
+- `ENABLE_USER_STREAM`
+- `COINBASE_WS_USER_JWT`
+
 ## Security
 
 - Secrets are environment-only.
@@ -208,3 +231,4 @@ Derivatives/perpetual endpoints vary by jurisdiction/account permissions. Connec
 ## Disclaimer
 
 This software is for research and infrastructure purposes only and does not constitute financial advice. Live trading with leverage can result in significant losses, including liquidation. You are solely responsible for deployment, risk settings, regulatory compliance, and capital at risk.
+

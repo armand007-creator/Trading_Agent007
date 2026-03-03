@@ -51,6 +51,13 @@ class StrategyConfig:
 class EngineConfig:
     loop_interval_seconds: int
     close_positions_on_shutdown: bool
+    use_websocket_data: bool
+    websocket_market_url: str
+    websocket_user_url: str
+    websocket_reconnect_seconds: int
+    websocket_lookback_bars: int
+    enable_user_stream: bool
+    websocket_user_jwt: str
 
 
 @dataclass
@@ -121,6 +128,13 @@ def load_config(env_path: str | None = None) -> AppConfig:
     engine = EngineConfig(
         loop_interval_seconds=int(os.getenv("TRADING_LOOP_INTERVAL_SECONDS", "30")),
         close_positions_on_shutdown=_get_bool("CLOSE_POSITIONS_ON_SHUTDOWN", True),
+        use_websocket_data=_get_bool("USE_WEBSOCKET_DATA", True),
+        websocket_market_url=os.getenv("COINBASE_WS_MARKET_URL", "wss://advanced-trade-ws.coinbase.com"),
+        websocket_user_url=os.getenv("COINBASE_WS_USER_URL", "wss://advanced-trade-ws-user.coinbase.com"),
+        websocket_reconnect_seconds=int(os.getenv("WS_RECONNECT_SECONDS", "5")),
+        websocket_lookback_bars=int(os.getenv("WS_LOOKBACK_BARS", "300")),
+        enable_user_stream=_get_bool("ENABLE_USER_STREAM", False),
+        websocket_user_jwt=os.getenv("COINBASE_WS_USER_JWT", ""),
     )
 
     return AppConfig(
