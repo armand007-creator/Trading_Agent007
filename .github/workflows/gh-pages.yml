@@ -19,10 +19,16 @@ jobs:
         with:
           node-version: 18
 
+      - name: Clean publish directory
+        run: |
+          rm -rf .publish
+          mkdir .publish
+          cp index.html .publish/
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: .
+          publish_dir: .publish
           force_orphan: true
